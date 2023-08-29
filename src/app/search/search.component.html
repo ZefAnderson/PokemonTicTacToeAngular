@@ -1,6 +1,25 @@
-<p>
-    search component works!
-</p>
-<h1 *ngIf="apiResponse">
-    {{apiResponse}}
-</h1>
+<p>search component works</p>
+
+<mat-card>
+    <mat-card-title>Customer Contact Information</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="search()">
+        <section>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Pokemon" formControlName="searchTerm">
+          </mat-form-field>
+        </section>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+<span *ngIf="imageArray">
+    <a *ngFor="let image of imageArray">
+        <img  [src]=image alt="">
+    </a>
+</span>
+
+<div *ngIf="apiResponse">
+    <h3>API Response:</h3>
+    <p >{{apiResponse}}</p>
+</div>

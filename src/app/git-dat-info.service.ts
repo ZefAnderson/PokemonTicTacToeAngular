@@ -14,6 +14,6 @@ export class GitDatInfoService {
     endpoint: string = 'https://pokeapi.co/api/v2/';
 
     searchPokemon(name: string): Observable<any> {
-      return this.http.get<any>(this.endpoint + 'pokemon/' + name)
+      return this.http.get<any>(this.endpoint + 'pokemon/' + name.toLowerCase())
     }
 }

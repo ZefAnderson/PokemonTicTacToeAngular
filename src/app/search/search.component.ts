@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GitDatInfoService } from '../git-dat-info.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -7,18 +8,40 @@ import { GitDatInfoService } from '../git-dat-info.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit{
-  constructor (private gitDatInfo: GitDatInfoService) {}
 
-  theFirstOne: string = 'umbreon';
+  form: FormGroup;
+  formBuilder: FormBuilder = new FormBuilder; 
+  
   apiResponse: string = '';
+  imageArray: string[] = [];
 
-  ngOnInit() {
-    this.search(this.theFirstOne);
+  constructor (
+    private gitDatInfo: GitDatInfoService, 
+    formBuilder: FormBuilder)
+    {
+      this.form = formBuilder.group({
+        searchTerm: ['Umbreon']
+      });
+    }
+
+  ngOnInit(){
+    this.search();
   }
 
-  search(name: string){
+  search(){
+    let name = this.form.controls['searchTerm'].value;
+    this.imageArray = [];
     this.gitDatInfo.searchPokemon(name).subscribe(
-      (res: any) => this.apiResponse = JSON.stringify(res)
-    );
+      (res: any) => {
+        this.apiResponse = JSON.stringify(res);
+      
+        this.imageArray.push(res.sprites.front_default);
+        this.imageArray.push(res.sprites.back_default);
+        this.imageArray.push(res.sprites.front_shiny);
+        this.imageArray.push(res.sprites.back_shiny);
+
+        console.log("Image Array:" + this.imageArray)
+      } );
   }
+
 }
