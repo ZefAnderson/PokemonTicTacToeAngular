@@ -1,7 +1,7 @@
 <p>search component works</p>
 
 <mat-card>
-    <mat-card-title>Customer Contact Information</mat-card-title>
+    <mat-card-title>PokeTic PokeTac PokeToe</mat-card-title>
     <mat-card-content>
         <form [formGroup]="form" (ngSubmit)="search()">
         <section>
@@ -15,7 +15,9 @@
 
 <span *ngIf="imageArray">
     <a *ngFor="let image of imageArray">
-        <img  [src]=image alt="">
+      <button>
+        <img *ngIf="image"  [src]=image alt="" (click)="selectImage(image)">
+      </button>
     </a>
 </span>
 
